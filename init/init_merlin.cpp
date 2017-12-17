@@ -25,17 +25,19 @@
    WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
    OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 
 #include <stdlib.h>
 #include <stdio.h>
 #define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
 #include <sys/_system_properties.h>
 
+#include <android-base/properties.h>
 #include "vendor_init.h"
 #include "property_service.h"
-#include "log.h"
-#include "util.h"
+
+using android::base::GetProperty;
+using android::init::property_set;
 
 void property_override(char const prop[], char const value[])
 {
@@ -55,12 +57,12 @@ void vendor_load_properties()
     char device[PROP_VALUE_MAX];
     char fingerprint[PROP_VALUE_MAX];
 
-    std::string platform = property_get("ro.board.platform");
+    std::string platform = GetProperty("ro.board.platform", "");
     if (platform != ANDROID_TARGET)
         return;
 
-    std::string radio = property_get("ro.boot.radio");
-    std::string sku = property_get("ro.boot.hardware.sku");
+    std::string radio = GetProperty("ro.boot.radio", "");
+    std::string sku = GetProperty("ro.boot.hardware.sku", "");
 
     if (sku == "XT1556" || radio == "0x6") {
 	sprintf(device, "merlin");
