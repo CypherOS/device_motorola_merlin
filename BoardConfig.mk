@@ -27,7 +27,7 @@ TARGET_INIT_VENDOR_LIB := libinit_merlin
 TARGET_RECOVERY_DEVICE_MODULES := libinit_merlin
 
 # Kernel
-TARGET_KERNEL_CONFIG := merlin_defconfig
+TARGET_KERNEL_CONFIG := aoscp_merlin_defconfig
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216	# 16384 * 1024 mmcblk0p31
